@@ -2,6 +2,9 @@
 目前仅仅定制了反扫接口，如果有针对性的定制优化需要前后端一起开发。
 透传接口目前没做，透传的意思就是按照指定结构发数据，后端直接转发，不做数据优化和处理，结果直接返回。
 
+## MyMessageEvents
+可以随意添加事件
+
 ## 初始化
 ```
 SocketClient.getSocketClient().init(address,port);

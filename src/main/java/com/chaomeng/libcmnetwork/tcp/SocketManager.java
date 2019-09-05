@@ -21,6 +21,37 @@ public class SocketManager {
     private List<MySocket> sockets = new ArrayList<>();
 
 
+    public static class ServerSocketBuilder{
+        private int mPort;
+        private Options mOptions;
+        private MessageEvents mMessageEvents;
+        private SLog mSLog;
+
+        public ServerSocketBuilder setmOptions(Options mOptions) {
+            this.mOptions = mOptions;
+            return this;
+        }
+
+        public ServerSocketBuilder setmPort(int mPort) {
+            this.mPort = mPort;
+            return this;
+        }
+
+        public ServerSocketBuilder setMessageEvents(MessageEvents messageEvents) {
+            this.mMessageEvents = messageEvents;
+            return this;
+        }
+
+        public ServerSocketBuilder setmSLog(SLog mSLog) {
+            this.mSLog = mSLog;
+            return this;
+        }
+
+        public MyServerSocket build(){
+            return new MyServerSocket(mPort,mOptions,mMessageEvents,mSLog);
+        }
+    }
+
 
 
     public static class SocketBuilder{
