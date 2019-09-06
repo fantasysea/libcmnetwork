@@ -60,6 +60,11 @@ public class ByteUtils {
         return Integer.parseInt(bytesToHexFun3(bytes), 16);
     }
 
+    /**
+     *
+     * @param bytes 需要转化的方法,记得关闭
+     * @return
+     */
     public static String bytesToHexFun3(byte[] bytes) {
         StringBuilder buf = new StringBuilder(bytes.length * 2);
         for (byte b : bytes) { // 使用String的format方法进行转换

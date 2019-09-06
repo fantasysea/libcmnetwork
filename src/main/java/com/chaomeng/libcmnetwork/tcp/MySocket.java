@@ -228,14 +228,14 @@ public class MySocket extends Emitter {
 
                 //只有ping pong message register等才真的发送给用户
                 Packet packet = new Packet();
-                packet.setEvent(ByteUtils.toBigEndianBytes(String.format("%04x", mMessageEvents.getValue(event))));
+                packet.setEvent(ByteUtils.toBigEndianBytes(String.format("%0"+2*mOptions.eventLegth+"x", mMessageEvents.getValue(event))));
                 if (!event.equalsIgnoreCase(SocketEvent.PING)&&!event.equalsIgnoreCase(SocketEvent.PONG)){
                     if (mOptions.debug){
-                        mSLog.d(TAG,"发射一个事件 event = "+event+"content = "+ByteUtils.bytesToHexFun3((byte[])args[0]));
+                        mSLog.d(TAG,"发射一个事件 event = "+event+" content length = "+((byte[])args[0]).length);
                     }
-                    packet.setSeqNum(ByteUtils.toBigEndianBytes(String.format("%06x", mSeqnum)));
+                    packet.setSeqNum(ByteUtils.toBigEndianBytes(String.format("%0"+2*mOptions.seqNumLegth+"x", mSeqnum)));
                     packet.setContent((byte[])args[0]);
-                    packet.setLength(ByteUtils.toBigEndianBytes(String.format("%04x", packet.getContent().length)));
+                    packet.setLength(ByteUtils.toBigEndianBytes(String.format("%0"+2*mOptions.contentLegth+"x", packet.getContent().length)));
                 }
                 if (MySocket.this.connected) {
                     //放在发送消息队列
@@ -528,6 +528,7 @@ public class MySocket extends Emitter {
      */
     public void close(String reason) {
         destory();
+        packetData = new byte[0];
         packetBuffer.clear();
         this.emit(SocketEvent.CLOSE, reason);
         if (this.mOptions.reconnection) {
