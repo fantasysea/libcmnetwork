@@ -541,7 +541,6 @@ public class MySocket extends Emitter {
         try{
             if(mSocket!=null){
                 if (mSocket.isConnected()){
-                    mSocket.shutdownInput();
                     mSocket.close();
                 }
                 mSocket = null;
