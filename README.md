@@ -1,3 +1,7 @@
+# 说明
+这个是内部使用的代理库,转发了http请求,通过私有socket通道和协议通讯,通讯协议参考另一个项目.
+https://github.com/fantasysea/nodesocket
+
 # 使用说明
 目前仅仅定制了反扫接口，如果有针对性的定制优化需要前后端一起开发。
 透传接口目前没做，透传的意思就是按照指定结构发数据，后端直接转发，不做数据优化和处理，结果直接返回。
@@ -31,7 +35,7 @@ SocketClient.getSocketClient().connect();
     };
 ```
 
-## 反扫
+## 反扫接口
 
 ```
 //轻轻的id和paycode做了个简单的对应
@@ -44,8 +48,6 @@ if (SocketClient.getSocketClient().isConnected()){
     byte[] price = ToolsUtil.toBigEndianBytes(String.format("%06x", (int)(Float.parseFloat(mMoney)*100)));//3字节
     int seqnum = SocketClient.getSocketClient().send("backsweep",ToolsUtil.byteMergerAll(ToolsUtil.xor(paycodeData,key),price));
     requests.put(seqnum,text);
-}else {
-   httpBackSweep(text,mMoney);
 }
 
 ```
